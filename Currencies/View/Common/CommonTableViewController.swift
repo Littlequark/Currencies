@@ -97,6 +97,14 @@ CollectionViewModelDelegate {
         return cell
     }
     
+    func update(cell:ItemTableViewCell, withViewModelAt indexPath:IndexPath) {
+        cell.viewModel = viewModel?.item(at:indexPath) as? CollectionItemViewModel
+        if tableView!.rowHeight == UITableView.automaticDimension {
+            cell.setNeedsUpdateConstraints()
+            cell.updateConstraintsIfNeeded()
+        }
+    }
+    
     //MARK: - CollectionViewModelDelegate
     
     func viewModel(_ viewModel: CollectionViewModelProtocol, didInsertItemsAt indexPaths: [IndexPath]) {
@@ -112,7 +120,9 @@ CollectionViewModelDelegate {
     }
     
     func viewModel(_ viewModel: CollectionViewModelProtocol, didRefreshItemsAt indexPaths: [IndexPath]) {
-        
+        if isViewLoaded {
+            tableView?.reloadRows(at: indexPaths, with: .none)
+        }
     }
     
     func viewModel(_ viewModel: CollectionViewModelProtocol, didMoveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
@@ -155,13 +165,6 @@ CollectionViewModelDelegate {
     
     //MARK: - Private
     
-    private func update(cell:ItemTableViewCell, withViewModelAt indexPath:IndexPath) {
-        cell.viewModel = viewModel?.item(at:indexPath) as? CollectionItemViewModel
-        if tableView!.rowHeight == UITableView.automaticDimension {
-            cell.setNeedsUpdateConstraints()
-            cell.updateConstraintsIfNeeded()
-        }
-    }
     
     private func reuseIdentifier(at indexPath:IndexPath) -> String? {
         var reuseIdentifier:String?

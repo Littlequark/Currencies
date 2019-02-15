@@ -25,6 +25,8 @@ protocol DataSourceProtocol {
     
     func indexPaths(for item:Any) -> [IndexPath]
     
+    func allIndexPaths() -> [IndexPath]
+    
     // Use these methods to notify the collection view of changes to the dataSource.
     func notifyItemsInserted(at insertedIndexPaths:[IndexPath])
     func notifyItemsRemoved(at removedIndexPaths:[IndexPath])

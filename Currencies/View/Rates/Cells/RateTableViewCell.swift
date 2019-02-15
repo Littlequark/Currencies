@@ -11,7 +11,7 @@ import UIKit
 class RateTableViewCell: ItemTableViewCell {
     
     @IBOutlet var currencyIdentifierLabel:UILabel?
-    @IBOutlet var rateLabel:UILabel?
+    @IBOutlet var rateTextField:UITextField?
     
     //MARK: - ConfigurableCellProtocol
     
@@ -19,8 +19,25 @@ class RateTableViewCell: ItemTableViewCell {
         didSet {
             if let rateViewModel = viewModel as? RateCellViewModelProtocol {
                 currencyIdentifierLabel?.text = rateViewModel.currencyIdentifier
-                rateLabel?.text = rateViewModel.rate
+                rateTextField?.text = rateViewModel.rate
             }
+        }
+    }
+    
+    //MARK: - Lifecycle methods
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        rateTextField?.isUserInteractionEnabled = false
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        rateTextField?.isUserInteractionEnabled = selected
+        if selected {
+            rateTextField?.becomeFirstResponder()
+        }
+        else {
+            rateTextField?.resignFirstResponder()
         }
     }
 

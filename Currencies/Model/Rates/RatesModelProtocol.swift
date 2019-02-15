@@ -14,6 +14,8 @@ protocol ModelDelegate {
 
 protocol RatesModelProtocol {
     
+    var baseRate:Rate { get }
+    
     var dataSource:DataSourceProtocol? { get set }
     
     func loadRates()

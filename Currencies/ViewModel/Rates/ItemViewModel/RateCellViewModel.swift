@@ -27,15 +27,32 @@ class RatecellViewModel: CollectionItemViewModel, RateCellViewModelProtocol {
     
     var rate:String? {
         get {
-            var rateValue:String?
-            if rateItem != nil {
-                rateValue = String(describing:rateItem!.coefficient)
-            }
-            return rateValue
+            return String(describing:cellCurrencyAmount())
         }
     }
     
+    //MARK: - Public interface
+    
+    var countItem:Rate?
+    var countAmount:Double?
+    
+    //MARK: - Private
+    
     private var rateItem: Rate?
+    
+    private func cellCurrencyAmount() -> Double {
+        var moneyAmount = Double(0)
+        if rateItem != nil {
+            if countAmount != nil,
+                countItem != nil {
+                moneyAmount = countAmount! * rateItem!.coefficient / countItem!.coefficient
+            }
+            else {
+                moneyAmount = rateItem!.coefficient
+            }
+        }
+        return moneyAmount
+    }
     
     required init(with dataItem: Any) {
         if let rateDataItem = dataItem as? Rate {

@@ -18,6 +18,7 @@ class RatesViewModel:CollectionViewModel, RatesViewModelProtocol {
                 return
             }
             dataSource = model?.dataSource
+            countRate = model?.baseRate
         }
     }
     
@@ -25,17 +26,49 @@ class RatesViewModel:CollectionViewModel, RatesViewModelProtocol {
         guard let item = dataSource?.item(at:indexPath) else {
             return nil
         }
-        return RatecellViewModel(with:item)
+        let viewModel = RatecellViewModel(with:item)
+        viewModel.countItem = countRate
+        viewModel.countAmount = currencyAmount
+        return viewModel
     }
     
     override func loadData() {
         model?.loadRates()
     }
     
+    //MARK: - Override
+    
+    override func dataSourceDidReloadData(dataSource: DataSourceProtocol) {
+        if (selectedIndexPaths.count > 0) {
+            let indexPaths = dataSource.allIndexPaths()
+            let indexPathsToReload = indexPaths.filter {
+                return !selectedIndexPaths.contains($0)
+            }
+            delegate?.viewModel(self, didRefreshItemsAt: indexPathsToReload)
+        }
+        else {
+            delegate?.viewModelDidReloadData(self)
+        }
+    }
+    
     //MARK: - RatesViewModelProtocol
+    
+    var selectedIndexPaths = [IndexPath]()
     
     var title:String? {
         return NSLocalizedString("Rates", comment: "")
     }
+    
+    func didChangeRate(at indexPath:IndexPath, with moneyAmount:Double) {
+        selectedIndexPaths.removeAll()
+        if let rate = dataSource?.item(at:indexPath) as? Rate {
+            countRate = rate
+            currencyAmount = moneyAmount
+            selectedIndexPaths = [indexPath]
+        }
+    }
+    
+    private var countRate:Rate?
+    private var currencyAmount = Double(1.0)
     
 }

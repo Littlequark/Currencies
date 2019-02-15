@@ -85,6 +85,17 @@ class DataSource<T:Equatable>: DataSourceProtocol {
         return indexPaths
     }
     
+    
+    func allIndexPaths() -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+        for section in 0..<numberOfSections {
+            for item in 0..<numberOfItems(in: section) {
+                indexPaths.append(IndexPath(item: item, section: section))
+            }
+        }
+        return indexPaths
+    }
+    
     //MARK: - Items methods
     
     func insert(itemsToInsert:[T], at indexes:IndexSet) {
@@ -141,6 +152,8 @@ class DataSource<T:Equatable>: DataSourceProtocol {
             self.notifyItemsInserted(at: replacedIndexPaths)
         }
     }
+    
+    
     
     //MARK: - Public notifications
     

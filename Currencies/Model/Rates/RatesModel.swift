@@ -24,17 +24,52 @@ class RatesModel:RatesModelProtocol, RatesLoaderDelegate {
     //MARK: - RatesModelProtocol
    
     func loadRates() {
-        ratesLoader.loadRates()
+        loadData()
+        startRefreshTimer()
     }
     
+    var baseRate: Rate {
+        get {
+            return _baseRate
+        }
+    }
+
     //MARK: - RatesLoaderDelegate
     
     func loader(_ loader: RatesLoaderProtocol, didLoadRates rates:[Rate]) {
         var moreRates = rates
-        moreRates.append(baseRate)
+        moreRates.append(_baseRate)
         dataSource?.items = moreRates
     }
     
-    private let baseRate = Rate(currency: Currency.euro, coefficient: 1.0, relatedCurrency: Currency.euro)
+    private let _baseRate = Rate(currency: Currency.euro, coefficient: 1.0, relatedCurrency: Currency.euro)
+    
+    //MARK: - Private
+    
+    private var refreshTimer:Timer?
+    
+    private func startIfNotRunning() {
+        if refreshTimer != nil,
+            refreshTimer!.isValid {
+            stopRefreshTimer()
+        }
+        startRefreshTimer()
+    }
+    
+    private func startRefreshTimer() {
+        refreshTimer = Timer.scheduledTimer(timeInterval: TimeInterval(1.0),
+                                            target: self,
+                                            selector: #selector(RatesModel.loadData),
+                                            userInfo: nil,
+                                            repeats: true)
+    }
+    
+    private func stopRefreshTimer() {
+       refreshTimer?.invalidate()
+    }
+    
+    @objc private func loadData() {
+        ratesLoader.loadRates()
+    }
     
 }

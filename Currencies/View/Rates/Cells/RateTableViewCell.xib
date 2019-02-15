@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HPV-fr-lYw" customClass="RateTableViewCell" customModule="Currencies" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="HPV-fr-lYw" customClass="RateTableViewCell" customModule="Currencies" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HPV-fr-lYw" id="CQN-Lz-2sv">
@@ -24,23 +24,24 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlH-Wo-nW8">
-                        <rect key="frame" x="317" y="11.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YFn-YJ-SYg">
+                        <rect key="frame" x="74" y="11.5" width="285" height="21"/>
                         <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tlH-Wo-nW8" firstAttribute="centerY" secondItem="CQN-Lz-2sv" secondAttribute="centerY" id="4gv-83-5qr"/>
+                    <constraint firstItem="YFn-YJ-SYg" firstAttribute="leading" secondItem="3rp-re-cK7" secondAttribute="trailing" constant="16" id="5bR-La-lmF"/>
+                    <constraint firstItem="YFn-YJ-SYg" firstAttribute="trailing" secondItem="CQN-Lz-2sv" secondAttribute="trailingMargin" id="DDV-Ea-k0u"/>
                     <constraint firstItem="3rp-re-cK7" firstAttribute="centerY" secondItem="CQN-Lz-2sv" secondAttribute="centerY" id="R4V-s8-d2k"/>
                     <constraint firstItem="3rp-re-cK7" firstAttribute="leading" secondItem="CQN-Lz-2sv" secondAttribute="leadingMargin" id="WUI-hJ-NEe"/>
-                    <constraint firstItem="tlH-Wo-nW8" firstAttribute="trailing" secondItem="CQN-Lz-2sv" secondAttribute="trailingMargin" id="Z1V-yD-oVF"/>
+                    <constraint firstItem="YFn-YJ-SYg" firstAttribute="centerY" secondItem="CQN-Lz-2sv" secondAttribute="centerY" id="vLz-W7-0oa"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="currencyIdentifierLabel" destination="3rp-re-cK7" id="HHc-67-m4L"/>
-                <outlet property="rateLabel" destination="tlH-Wo-nW8" id="nrJ-Jz-E3K"/>
+                <outlet property="rateTextField" destination="YFn-YJ-SYg" id="32M-oM-ddI"/>
             </connections>
             <point key="canvasLocation" x="29.600000000000001" y="-5.3973013493253381"/>
         </tableViewCell>

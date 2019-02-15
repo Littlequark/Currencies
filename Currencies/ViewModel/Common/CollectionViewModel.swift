@@ -46,7 +46,7 @@ class CollectionViewModel:CollectionViewModelProtocol, DataSourceDelegate {
         guard let dataItem = dataSource?.item(at:indexPath) else {
             return nil
         }
-        return CollectionItemViewModel(with: dataItem) as? CollectionItemProtocol
+        return CollectionItemViewModel(with: dataItem)
     }
     
     func titleForSection(_ section: Int) -> String? {
