@@ -13,9 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let ratesViewController = RatesListViewController()
+        ratesViewController.viewModel = RatesViewModelServiceLocator.ratesViewModel()
+        let navigationController = UINavigationController()
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.viewControllers = [ratesViewController]
+        window?.rootViewController = navigationController
         return true
     }
 
