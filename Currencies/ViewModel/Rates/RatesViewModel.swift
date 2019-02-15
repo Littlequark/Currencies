@@ -26,7 +26,7 @@ class RatesViewModel:CollectionViewModel, RatesViewModelProtocol {
         guard let item = dataSource?.item(at:indexPath) else {
             return nil
         }
-        let viewModel = RatecellViewModel(with:item)
+        let viewModel = RateCellViewModel(with:item)
         viewModel.countItem = countRate
         viewModel.countAmount = currencyAmount
         return viewModel
@@ -57,6 +57,16 @@ class RatesViewModel:CollectionViewModel, RatesViewModelProtocol {
     
     var title:String? {
         return NSLocalizedString("Rates", comment: "")
+    }
+    
+    func didChange(rate: Rate, with moneyAmount: Double) {
+        selectedIndexPaths.removeAll()
+        if let indexPath = dataSource?.indexPaths(for: rate).first {
+            countRate = rate
+            currencyAmount = moneyAmount
+            selectedIndexPaths = [indexPath]
+//            delegate?.viewModelDidReloadData(self)
+        }
     }
     
     func didChangeRate(at indexPath:IndexPath, with moneyAmount:Double) {

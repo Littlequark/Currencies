@@ -38,6 +38,7 @@
 		C9C028E42216D57700C79FDB /* RateCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C028E32216D57700C79FDB /* RateCellViewModelProtocol.swift */; };
 		C9C028E82216ECAB00C79FDB /* IsoCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C028E62216ECAB00C79FDB /* IsoCountries.swift */; };
 		C9C028E92216ECAB00C79FDB /* IsoCountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C028E72216ECAB00C79FDB /* IsoCountryCodes.swift */; };
+		C9C028EB22173A0F00C79FDB /* RateChangingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C028EA22173A0F00C79FDB /* RateChangingProtocol.swift */; };
 		C9FCA01D22135B700050916C /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCA01C22135B700050916C /* ItemTableViewCell.swift */; };
 		C9FCA02122135F5B0050916C /* RatesViewModelServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCA02022135F5B0050916C /* RatesViewModelServiceLocator.swift */; };
 		C9FCA0232213603B0050916C /* RatesLoaderServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCA0222213603B0050916C /* RatesLoaderServiceLocator.swift */; };
@@ -91,6 +92,7 @@
 		C9C028E32216D57700C79FDB /* RateCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		C9C028E62216ECAB00C79FDB /* IsoCountries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IsoCountries.swift; path = "../../../../../Downloads/IsoCountryCodes-master/IsoCountries.swift"; sourceTree = "<group>"; };
 		C9C028E72216ECAB00C79FDB /* IsoCountryCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IsoCountryCodes.swift; path = "../../../../../Downloads/IsoCountryCodes-master/IsoCountryCodes.swift"; sourceTree = "<group>"; };
+		C9C028EA22173A0F00C79FDB /* RateChangingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateChangingProtocol.swift; sourceTree = "<group>"; };
 		C9FCA01C22135B700050916C /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		C9FCA02022135F5B0050916C /* RatesViewModelServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesViewModelServiceLocator.swift; sourceTree = "<group>"; };
 		C9FCA0222213603B0050916C /* RatesLoaderServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesLoaderServiceLocator.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				C99287542213542E00C2F506 /* RateTableViewCell.swift */,
 				C9C028E12216D43400C79FDB /* RateTableViewCell.xib */,
+				C9C028EA22173A0F00C79FDB /* RateChangingProtocol.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				C9AE31DF2208624B00F7650C /* RatesModelProtocol.swift in Sources */,
 				C9FCA0272214331A0050916C /* DataSourceItemProtocol.swift in Sources */,
 				C9FCA02522138F970050916C /* CollectionItemViewModel.swift in Sources */,
+				C9C028EB22173A0F00C79FDB /* RateChangingProtocol.swift in Sources */,
 				C9C028E02216D29C00C79FDB /* RateCellViewModel.swift in Sources */,
 				C99287512212FCE100C2F506 /* CommonTableViewController.swift in Sources */,
 				C9C028E42216D57700C79FDB /* RateCellViewModelProtocol.swift in Sources */,

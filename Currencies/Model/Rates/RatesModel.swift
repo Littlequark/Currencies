@@ -25,7 +25,7 @@ class RatesModel:RatesModelProtocol, RatesLoaderDelegate {
    
     func loadRates() {
         loadData()
-        startRefreshTimer()
+        startIfNotRunning()
     }
     
     var baseRate: Rate {
@@ -39,6 +39,7 @@ class RatesModel:RatesModelProtocol, RatesLoaderDelegate {
     func loader(_ loader: RatesLoaderProtocol, didLoadRates rates:[Rate]) {
         var moreRates = rates
         moreRates.append(_baseRate)
+        moreRates.sort { return $0.currency.identifier < $1.currency.identifier }
         dataSource?.items = moreRates
     }
     

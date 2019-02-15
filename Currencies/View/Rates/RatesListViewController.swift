@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RatesListViewController: CommonTableViewController {
+class RatesListViewController: CommonTableViewController, RateChangingProtocol {
 
     private var selectedIndexPaths = [IndexPath]()
     private var selectedCell:UITableViewCell?
@@ -22,26 +22,44 @@ class RatesListViewController: CommonTableViewController {
                 navigationItem.rightBarButtonItem = refreshBarItem
         #endif
     }
+    private var ratesViewModel:RatesViewModelProtocol? {
+        return viewModel as? RatesViewModelProtocol
+    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    //MARK: - RateChangingProtocol
+    
+    func didChange(rate: Any, with amount: Double) {
+        if rate is RateCellViewModel {
+           let rateDataItem = (rate as! RateCellViewModel)._dataItem as! Rate
+            ratesViewModel?.didChange(rate: rateDataItem, with: amount)
+        }
     }
     
     //MARK: - Override of CommonTableViewController
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (viewModel as? RatesViewModelProtocol)!.selectedIndexPaths.contains(indexPath) {
-            return selectedCell!
-        }
-        else {
-            return super.tableView(tableView, cellForRowAt: indexPath)
-        }
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if (ratesViewModel?.selectedIndexPaths.contains(indexPath) ?? false) {
+//            return selectedCell!
+//        }
+//        else {
+//            return super.tableView(tableView, cellForRowAt: indexPath)
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCell = tableView.cellForRow(at: indexPath)
-        (viewModel as? RatesViewModelProtocol)?.didChangeRate(at: indexPath, with:100)
+    }
+    
+    override func viewModel(_ viewModel: CollectionViewModelProtocol, didRefreshItemsAt indexPaths: [IndexPath]) {
+        var indexPathsToUpdate = [IndexPath]()
+        var indexPathsToReload = [IndexPath]()
+        indexPaths.forEach { (indexPath) in
+            ratesViewModel!.selectedIndexPaths.contains(indexPath) ?
+                indexPathsToUpdate.append(indexPath) :
+                indexPathsToReload.append(indexPath)
+        }
+        updateWithNoReloadRows(at: indexPathsToUpdate)
+        super.viewModel(viewModel, didRefreshItemsAt: indexPathsToReload)
     }
     
     //MARK: - Register
@@ -51,7 +69,7 @@ class RatesListViewController: CommonTableViewController {
         tableView?.register(NSClassFromString(cellIdentifier), forCellReuseIdentifier:cellIdentifier)
         let nib = RateTableViewCell.cellNib
         tableView?.register(nib, forCellReuseIdentifier:cellIdentifier)
-        registerCell(with: cellIdentifier, forViewModelWith:RatecellViewModel.itemIdentifier)
+        registerCell(with: cellIdentifier, forViewModelWith:RateCellViewModel.itemIdentifier)
     }
     
     //MARK: - Actions

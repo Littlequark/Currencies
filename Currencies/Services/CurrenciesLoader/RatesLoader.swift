@@ -16,7 +16,7 @@ class RatesLoader: RatesLoaderProtocol {
     func loadRates() {
         networkClient?.performRequrest(.lastest, methodParams: ["base":"EUR"], completion: { (data, error) in
             #if DEBUG
-                print(data!)
+//                print(data!)
             #endif
             guard let ratesListDTO = self.parseRatesListData(responseData: data!) else {
                 return

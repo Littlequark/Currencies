@@ -55,6 +55,13 @@ CollectionViewModelDelegate {
     
     private var viewModelToCellMapping = [String:String]()
     
+    func updateWithNoReloadRows(at indexPaths:[IndexPath]) {
+        for indexPathToUpdate in indexPaths {
+            let cell = tableView(tableView!, cellForRowAt: indexPathToUpdate) as! ItemTableViewCell
+            update(cell:cell, withViewModelAt: indexPathToUpdate)
+        }
+    }
+    
     //MARK: - UIViewController lifecycle
     
     override func loadView() {
@@ -164,7 +171,6 @@ CollectionViewModelDelegate {
     }
     
     //MARK: - Private
-    
     
     private func reuseIdentifier(at indexPath:IndexPath) -> String? {
         var reuseIdentifier:String?

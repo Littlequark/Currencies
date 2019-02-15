@@ -8,10 +8,14 @@
 
 import UIKit
 
-class RateTableViewCell: ItemTableViewCell {
+class RateTableViewCell: ItemTableViewCell, UITextFieldDelegate {
     
     @IBOutlet var currencyIdentifierLabel:UILabel?
-    @IBOutlet var rateTextField:UITextField?
+    @IBOutlet var rateTextField:UITextField? {
+        didSet {
+            rateTextField?.delegate = self
+        }
+    }
     
     //MARK: - ConfigurableCellProtocol
     
@@ -40,5 +44,43 @@ class RateTableViewCell: ItemTableViewCell {
             rateTextField?.resignFirstResponder()
         }
     }
-
+    
+    //MARK: - UITextFielDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let text = textField.text,
+            let responder = findResponder() as? RateChangingProtocol {
+            let amount = Double(text)
+            responder.didChange(rate:viewModel as Any, with: amount!)
+        }
+    }
+    
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        if let  text = textField.text,
+            let swiftRange = Range(range, in: text),
+            let responder = findResponder() as? RateChangingProtocol {
+            let result = text.replacingCharacters(in: swiftRange, with: string)
+            if let amount = Double(result) {
+                responder.didChange(rate:viewModel as Any, with: amount)
+            }
+        }
+        return true
+    }
+    
+    func findResponder () -> UIResponder? {
+        var rateChangeResponder:UIResponder?
+        var responderToCheck = self.next
+        while responderToCheck != nil {
+            if responderToCheck!.responds(to:#selector(RateChangingProtocol.didChange(rate:with:))) {
+                rateChangeResponder = responderToCheck
+                break
+            }
+            else {
+                responderToCheck = responderToCheck!.next
+            }
+        }
+        return rateChangeResponder
+    }
 }

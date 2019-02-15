@@ -14,6 +14,7 @@ protocol CollectionViewModelDelegate  {
     func viewModel(_ viewModel:CollectionViewModelProtocol, didRemoveItemsAt indexPaths:[IndexPath])
     func viewModel(_ viewModel:CollectionViewModelProtocol, didRefreshItemsAt indexPaths:[IndexPath])
     func viewModel(_ viewModel:CollectionViewModelProtocol, didMoveItemFrom fromIndexPath:IndexPath, to toIndexPath:IndexPath)
+    /// To call update without reload
     
     func viewModel(_ viewModel:CollectionViewModelProtocol, didInsert sections:IndexSet)
     func viewModel(_ viewModel:CollectionViewModelProtocol, didRemove sections:IndexSet)

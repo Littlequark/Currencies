@@ -12,7 +12,7 @@ protocol RatesViewModelProtocol: CollectionViewModelProtocol {
     
     var title:String? { get }
     
-    func didChangeRate(at indexPath:IndexPath, with moneyAmount:Double)
+    func didChange(rate:Rate, with moneyAmount:Double)
     
     var selectedIndexPaths:[IndexPath] { get }
     

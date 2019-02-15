@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RatecellViewModel: CollectionItemViewModel, RateCellViewModelProtocol {
+class RateCellViewModel: CollectionItemViewModel, RateCellViewModelProtocol {
     
     //MARK: - RateCellViewModelProtocol
     
@@ -44,14 +44,15 @@ class RatecellViewModel: CollectionItemViewModel, RateCellViewModelProtocol {
         var moneyAmount = Double(0)
         if rateItem != nil {
             if countAmount != nil,
-                countItem != nil {
+                countItem != nil,
+                rateItem != countItem {
                 moneyAmount = countAmount! * rateItem!.coefficient / countItem!.coefficient
             }
             else {
                 moneyAmount = rateItem!.coefficient
             }
         }
-        return moneyAmount
+        return round(moneyAmount * 100.0)/100.0
     }
     
     required init(with dataItem: Any) {
