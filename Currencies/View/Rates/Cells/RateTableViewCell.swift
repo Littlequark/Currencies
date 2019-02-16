@@ -14,7 +14,7 @@ class RateTableViewCell: ItemTableViewCell, UITextFieldDelegate {
     @IBOutlet var rateTextField:UITextField? {
         didSet {
             rateTextField?.delegate = self
-            rateTextField?.keyboardType = .decimalPadч
+            rateTextField?.keyboardType = .decimalPad
         }
     }
     
