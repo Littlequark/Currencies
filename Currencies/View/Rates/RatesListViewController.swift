@@ -53,7 +53,9 @@ class RatesListViewController: CommonTableViewController, RateChangingProtocol {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCell = tableView.cellForRow(at: indexPath)
+        if selectedCell == nil  {
+            selectedCell = tableView.cellForRow(at: indexPath)
+        }
     }
     
     override func viewModel(_ viewModel: CollectionViewModelProtocol, didRefreshItemsAt indexPaths: [IndexPath]) {

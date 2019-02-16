@@ -14,4 +14,6 @@ protocol RateCellViewModelProtocol:DataInitializable {
     
     var rate:String?  { get }
     
+    var isBaseRate:Bool { get }
+    
 }

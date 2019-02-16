@@ -14,6 +14,7 @@ class RateTableViewCell: ItemTableViewCell, UITextFieldDelegate {
     @IBOutlet var rateTextField:UITextField? {
         didSet {
             rateTextField?.delegate = self
+            rateTextField?.keyboardType = .decimalPadч
         }
     }
     
@@ -39,13 +40,21 @@ class RateTableViewCell: ItemTableViewCell, UITextFieldDelegate {
         rateTextField?.isUserInteractionEnabled = selected
         if selected {
             rateTextField?.becomeFirstResponder()
+            rateTextField?.textAlignment = .left
         }
         else {
             rateTextField?.resignFirstResponder()
+            let isBaseRate = (viewModel as? RateCellViewModelProtocol)?.isBaseRate ?? false
+            rateTextField?.textAlignment = isBaseRate ? .left : .right
         }
     }
     
     //MARK: - UITextFielDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if let text = textField.text,

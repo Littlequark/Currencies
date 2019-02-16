@@ -31,6 +31,14 @@ class RateCellViewModel: CollectionItemViewModel, RateCellViewModelProtocol {
         }
     }
     
+    var isBaseRate: Bool {
+        var _isBaseRate = false
+        if rateItem != nil, countItem != nil {
+            _isBaseRate = rateItem! == countItem!
+        }
+        return _isBaseRate
+    }
+    
     //MARK: - Public interface
     
     var countItem:Rate?

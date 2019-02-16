@@ -65,7 +65,7 @@ class RatesViewModel:CollectionViewModel, RatesViewModelProtocol {
             countRate = rate
             currencyAmount = moneyAmount
             selectedIndexPaths = [indexPath]
-//            delegate?.viewModelDidReloadData(self)
+            dataSourceDidReloadData(dataSource: dataSource!)
         }
     }
     
