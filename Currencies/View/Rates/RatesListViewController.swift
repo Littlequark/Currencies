@@ -13,6 +13,10 @@ class RatesListViewController: CommonTableViewController, RateChangingProtocol {
     private var selectedIndexPaths = [IndexPath]()
     private var selectedCell:UITableViewCell?
     
+    deinit {
+        unsubscribeFromNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
@@ -21,7 +25,9 @@ class RatesListViewController: CommonTableViewController, RateChangingProtocol {
         let refreshBarItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(RatesListViewController.refreshPressed(sender:)))
                 navigationItem.rightBarButtonItem = refreshBarItem
         #endif
+        subscribeToNotifications()
     }
+    
     private var ratesViewModel:RatesViewModelProtocol? {
         return viewModel as? RatesViewModelProtocol
     }
@@ -77,6 +83,24 @@ class RatesListViewController: CommonTableViewController, RateChangingProtocol {
     @IBAction func refreshPressed(sender:AnyObject) {
         viewModel?.loadData()
     }
-
+    
+    //MARK: - Notifications
+    
+    private func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(RatesListViewController.keyboardWillChangeFrame(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    private func unsubscribeFromNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func keyboardWillChangeFrame(notification:Notification) {
+        if let keyboardRect = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect  {
+            tableView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardRect.height, right: 0)
+        }
+    }
+    
 }
 
