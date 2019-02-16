@@ -43,6 +43,10 @@ class RatesModel:RatesModelProtocol, RatesLoaderDelegate {
         dataSource?.items = moreRates
     }
     
+    func loader(_ loader: RatesLoaderProtocol, didReceiveError error: Error) {
+        //FIXME: - implement error handling
+    }
+    
     private let _baseRate = Rate(currency: Currency.euro, coefficient: 1.0, relatedCurrency: Currency.euro)
     
     //MARK: - Private

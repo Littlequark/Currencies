@@ -12,6 +12,8 @@ protocol RatesLoaderDelegate: class {
     
     func loader(_ loader:RatesLoaderProtocol, didLoadRates rates:[Rate])
     
+    func loader(_ loader:RatesLoaderProtocol, didReceiveError error:Error)
+    
 }
 
 protocol RatesLoaderProtocol {

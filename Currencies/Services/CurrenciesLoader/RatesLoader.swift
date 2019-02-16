@@ -15,15 +15,24 @@ class RatesLoader: RatesLoaderProtocol {
 
     func loadRates() {
         networkClient?.performRequrest(.lastest, methodParams: ["base":"EUR"], completion: { (data, error) in
-            #if DEBUG
-//                print(data!)
-            #endif
-            guard let ratesListDTO = self.parseRatesListData(responseData: data!) else {
-                return
+            if data != nil {
+                if let rates = self.rates(from: data!) {
+                    self.delegate?.loader(self, didLoadRates:rates)
+                }
             }
-            let rates = self.ratesFromList(ratesListDTO: ratesListDTO)
-            self.delegate?.loader(self, didLoadRates:rates)
+            else if error != nil {
+                self.delegate?.loader(self, didReceiveError: error!)
+            }
         })
+    }
+    
+    //FIXME: - move to specific response serializer
+    private func rates(from data:Data!) -> [Rate]? {
+        var rates:[Rate]?
+        if let ratesListDTO = parseRatesListData(responseData: data!) {
+            rates = ratesFromList(ratesListDTO: ratesListDTO)
+        }
+        return rates
     }
     
     private func parseRatesListData(responseData: Data!) -> RatesListDTO? {
